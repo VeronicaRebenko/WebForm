@@ -1,0 +1,18 @@
+<apex:page controller="newVisaController" lightningStylesheets="true" cache="false" sidebar="false" showHeader="false">
+    <style type="text/css">
+        h1 {
+        text-align: center;
+        color: #358f89;
+        font-size: 30px;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px 0;
+        }
+    </style>
+    <h1>
+        You’re all done! 
+        Our team will be in touch within the next few days 
+        with a personalized immigration recommendation 
+        based on your answers! 
+    </h1>
+</apex:page>
