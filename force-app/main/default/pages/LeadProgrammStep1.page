@@ -1,0 +1,181 @@
+<apex:page controller="LeadProgramController" lightningStylesheets="true" cache="false" sidebar="false" showHeader="false">
+    <style type="text/css">
+        html {
+        color: #000000;
+        }
+        body .pbSubsection {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 15px 0;
+        }
+        h1 {
+        text-align: center;
+        color: #358f89;
+        font-size: 30px;
+        margin: 0 0 40px;
+        }
+        body .detailList {
+        font-size: 14px;
+        }
+        body .detailList td {
+        padding: 2px 8px;
+        }
+        body input, body select, body textarea {
+        margin-bottom: 20px;
+        }
+        body input[type="text"], input[type="email"], input[type="number"], input[type="tel"], input[type="password"], body select, body textarea {
+        width: 100%;
+        }
+        body .pbBottomButtons input[type="submit"] {
+        font-size: 16px;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-weight: 700;
+        min-width: 120px;
+        padding: 5px 10px;
+        background-color: #81aa40;
+        border: 0;
+        -webkit-transition: color .3s linear, background .3s linear, box-shadow .3s linear;
+    	transition: color .3s linear, background .3s linear, box-shadow .3s linear;
+    	box-shadow: 0 18px 10px -10px rgba(0, 0, 0, .4);
+        }
+        body .pbBottomButtons input[type="submit"]:hover {
+        color: #ffffff;
+        box-shadow: none;
+        background-color: #358f89;
+        }
+        body .pbBottomButtons {
+        margin-bottom: 20px;
+        }
+        body input + .errorMsg, body select + .errorMsg, body textarea + .errorMsg {
+        margin-top: -20px;
+        }
+        body .errorMsg {
+    	margin-bottom: 20px;
+        }
+        body .detailList td > .multiSelectPicklistTable {
+        margin: 0 auto;
+        }
+    </style>
+    <style type="text/css">
+        html {
+        color: #000000;
+        }
+        body .pbSubsection {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 15px 0;
+        }
+        h1 {
+        text-align: center;
+        color: #358f89;
+        font-size: 30px;
+        margin: 0 0 40px;
+        }
+        body .detailList {
+        font-size: 14px;
+        }
+        body .detailList td {
+        padding: 2px 8px;
+        }
+        body input, body select, body textarea {
+        margin-bottom: 20px;
+        }
+        body input[type="text"], input[type="email"], input[type="number"], input[type="tel"], input[type="password"], body select, body textarea {
+        width: 100%;
+        }
+        body .pbBottomButtons input[type="submit"] {
+        font-size: 16px;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-weight: 700;
+        min-width: 120px;
+        padding: 5px 10px;
+        background-color: #81aa40;
+        border: 0;
+        -webkit-transition: color .3s linear, background .3s linear, box-shadow .3s linear;
+    	transition: color .3s linear, background .3s linear, box-shadow .3s linear;
+    	box-shadow: 0 18px 10px -10px rgba(0, 0, 0, .4);
+        }
+        body .pbBottomButtons input[type="submit"]:hover {
+        color: #ffffff;
+        box-shadow: none;
+        background-color: #358f89;
+        }
+        body .pbBottomButtons {
+        margin-bottom: 20px;
+        }
+        body input + .errorMsg, body select + .errorMsg, body textarea + .errorMsg {
+        margin-top: -20px;
+        }
+        body .errorMsg {
+    	margin-bottom: 20px;
+        }
+        body .detailList td > .multiSelectPicklistTable {
+        margin: 0 auto;
+        }
+    </style>
+    
+    <script type="text/javascript">
+    function startsubmitting() {
+        
+       parent.postMessage({
+            'func': 'freezePage',
+            'message': '1'
+        }, '*');
+    }
+    
+    </script>
+
+    
+    <apex:form id="visaform">
+        
+        <apex:inputHidden value="{!browserurl}" id="urlfield"/> 
+        <input type="hidden" name="currentVFpage" value="{!$CurrentPage.Name}"/>
+     
+        <apex:pageBlock mode="edit">
+            
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandButton action="{!step2}" value="Continue"/>  
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection columns="1" >
+                <h1>
+        			Let’s get started:
+    			</h1>
+                <div><b>Email*</b> (We need this to send you your recommendations!)
+                    <apex:inputField value="{!lead.Email}" label="" onchange="startsubmitting()"/>
+                </div>
+                <div>Are you happy to receive a personalized immigration offer and other relevant offers from Born2Invest?*  
+                    <apex:inputField value="{!lead.Offers__c }" label="" onchange="startsubmitting()"/> 
+                </div>
+                <div><b>Full name*</b> (as shown on your passport)  
+                    <apex:inputField value="{!lead.LastName}" label="" onchange="startsubmitting()"/> 
+                </div>
+                <div><b>Telephone number*</b> (This let’s our specialists reach out to you, we will never call you without your direct permission)  
+                    <apex:inputField value="{!lead.Phone}" label="" onchange="startsubmitting()"/> 
+                </div>
+                <div><b>Nationality*</b> 
+                    <apex:inputField value="{!lead.Nationality__c}" label="" onchange="startsubmitting()"/> 
+                </div>
+                <div><b>Select the program you are interested in:</b> 
+                    <apex:selectList value="{!lead.Programme__c}" label="" size="1" onchange="startsubmitting()">
+    					<apex:selectOptions value="{!options}"/>
+					</apex:selectList>		
+                </div>
+                <div><div></div>
+                   <italic>* Required Field</italic>
+                </div>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <script type="text/javascript">
+    	var url = (window.location != window.parent.location)
+            ? document.referrer
+            : document.location.href;
+    	document.getElementById('{!$Component.visaform.urlfield}').value = url;
+	</script>
+    
+</apex:page>
