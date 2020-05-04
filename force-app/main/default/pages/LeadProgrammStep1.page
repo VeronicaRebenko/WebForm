@@ -133,24 +133,24 @@
         <apex:inputHidden value="{!browserurl}" id="urlfield"/> 
         <input type="hidden" name="currentVFpage" value="{!$CurrentPage.Name}"/>
      
-        <apex:pageBlock mode="edit">
+        <apex:pageBlock mode="edit" id="block">
             
             <apex:pageBlockButtons location="Bottom">
                 <apex:commandButton action="{!step2}" value="Continue"/>  
             </apex:pageBlockButtons>
             
-            <apex:pageBlockSection columns="1" >
+            <apex:pageBlockSection columns="1" id="blocksection">
                 <h1>
         			Let’s get started:
     			</h1>
                 <div><b>Email*</b> (We need this to send you your recommendations!)
-                    <apex:inputField value="{!lead.Email}" label="" onchange="startsubmitting()"/>
+                    <apex:inputField value="{!lead.Email}" label="" onchange="startsubmitting()" id="emailfield"/>
                 </div>
-                <div>Are you happy to receive a personalized immigration offer and other relevant offers from Born2Invest?*  
+                <div>Are you happy to receive a personalized immigration offer and other relevant offers from Born2Invest?  
                     <apex:inputField value="{!lead.Offers__c }" label="" onchange="startsubmitting()"/> 
                 </div>
                 <div><b>Full name*</b> (as shown on your passport)  
-                    <apex:inputField value="{!lead.LastName}" label="" onchange="startsubmitting()"/> 
+                    <apex:inputField value="{!lead.LastName}" label="" onchange="startsubmitting()" id="namefield"/> 
                 </div>
                 <div><b>Telephone number*</b> (This let’s our specialists reach out to you, we will never call you without your direct permission)  
                     <apex:inputField value="{!lead.Phone}" label="" onchange="startsubmitting()"/> 
@@ -175,7 +175,11 @@
     	var url = (window.location != window.parent.location)
             ? document.referrer
             : document.location.href;
-    	document.getElementById('{!$Component.visaform.urlfield}').value = url;
+    	//url = 'https://born2invest.com/?p=165795&name=Eddie%20Rios&email=test@gmail.com';
+    	var url_string = new URL(url);
+    	document.getElementById('{!$Component.visaform.urlfield}').value = url;	
+    	document.getElementById('{!$Component.visaform.block.blocksection.emailfield}').value = url_string.searchParams.get("email");
+    	document.getElementById('{!$Component.visaform.block.blocksection.namefield}').value = url_string.searchParams.get("name");
 	</script>
     
 </apex:page>
