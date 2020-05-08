@@ -6,13 +6,26 @@
         body .pbSubsection {
         max-width: 900px;
         margin: 0 auto;
-        padding: 15px 0;
+        padding: 0px 0;
         }
-        h1 {
+        body .intro {
         text-align: center;
         color: #358f89;
         font-size: 30px;
-        margin: 0 0 40px;
+        line-height: 1.2;
+        font-weight: 700;
+        margin: 0 0 20px;
+        }
+        body .customlabel {
+        font-size: 12px;
+        font-style:italic;
+        }
+        body .bottomlabel {
+        font-size: 12px;
+        }
+        body .commentlabel {
+        font-size: 14px;
+        margin-top: 20px;
         }
         body .detailList {
         font-size: 14px;
@@ -21,7 +34,7 @@
         padding: 2px 8px;
         }
         body input, body select, body textarea {
-        margin-bottom: 20px;
+        margin-bottom: 5px;
         }
         body input[type="text"], input[type="email"], input[type="number"], input[type="tel"], input[type="password"], body select, body textarea {
         width: 100%;
@@ -45,35 +58,47 @@
         background-color: #358f89;
         }
         body .pbBottomButtons {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         }
         body input + .errorMsg, body select + .errorMsg, body textarea + .errorMsg {
-        margin-top: -20px;
+        margin-top: -5px;
         }
         body .errorMsg {
-    	margin-bottom: 20px;
+    	margin-bottom: 5px;
         }
         body .detailList td > .multiSelectPicklistTable {
         margin: 0 auto;
+        }
+        body .bPageBlock .detailList .data2Col {
+        margin-bottom: 0 !important;
+        }
+        body input[type="checkbox"], body input[type="radio"] {
+        margin-right: 2px;
+        margin-bottom: 0;
+        }
+        body .pbButtonb .btn, body .pbButtonb .btn + .btn {
+        margin: 3px 8px !important;
         }
     </style>
   
     <apex:form >
       <apex:pageBlock >
 
+        <div class="pbBottomButtons">
         <apex:pageBlockButtons location="Bottom">
         	<apex:commandButton action="{!step2}" value="Previous"/>
           	<apex:commandButton action="{!save}" value="Submit"/>
         </apex:pageBlockButtons>
+        </div>
           
        <apex:pageBlockSection columns="1" >
-           <h1>
+           <p class="intro">
                You’re almost there, a few final details and we’ll send you your personalized immigration recommendations!
-           </h1>
+           </p>
             <div><b>Where would you like to move?*</b>
               	<apex:inputField value="{!lead.Where_move__c}" label="" />    
             </div>
-            <div><b>Why do you want to move?*</b> (Please Tick all that apply) 
+            <div><b>Why do you want to move?*</b> <span class="customlabel">(Please Tick all that apply)</span> 
               <apex:inputField value="{!lead.Why_move__c}" label="" /> 
             </div>
             <div><b>When would you like to move?*</b> 
@@ -83,7 +108,7 @@
                <apex:inputField value="{!lead.LinkedIn__c}" label="" /> 
            </div>
            <div><div></div>
-           		<italic>* Required Field</italic>
+           		<div class="commentlabel">* Required Field</div>
            </div>
         </apex:pageBlockSection>
           

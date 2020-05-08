@@ -1,20 +1,20 @@
 <apex:page controller="LeadProgramController" lightningStylesheets="true" cache="false" sidebar="false" showHeader="false">
     <style type="text/css">
-        h1 {
+        body .intro {
         text-align: center;
         color: #358f89;
         font-size: 30px;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 30px 0;
+        line-height: 1.2;
+        font-weight: 700;
+        margin: 0 0 20px;
         }
     </style>
-    <h1>
+    <p class="intro">
         You’re all done! 
         Our team will be in touch within the next few days 
         with a personalized immigration recommendation 
         based on your answers! 
-    </h1>
+    </p>
     
     <script type="text/javascript">
      function completesubmitting() {

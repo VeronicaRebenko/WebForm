@@ -36,6 +36,7 @@ public class LeadProgramController {
     }
     
     public PageReference step1() {
+        
         if(pageName == PAGE_DEFAULT_PROGRAMM){
             return Page.LeadStep1;
         }
@@ -44,13 +45,8 @@ public class LeadProgramController {
     
     public PageReference step2() {
         
-        if (String.isBlank(pageName)) {
-             pageName = ApexPages.currentPage().getParameters().get('currentVFpage');
-        }  
-        system.debug('pageName: ' + pageName);
-        
         Boolean hasError = false;
-        
+               
         if(lead.Email == null) {
             lead.Email.addError(ADD_VALUE);
             hasError = true;
@@ -79,7 +75,16 @@ public class LeadProgramController {
             hasError = true;
         }
         
-        if (hasError) return Page.VisaStep1;
+        if(ApexPages.currentPage().getParameters().get('CheckboxInput') == 'on'){
+            lead.Offers__c = true;
+        }
+        
+        if (String.isBlank(pageName)) {
+             pageName = ApexPages.currentPage().getParameters().get('currentVFpage');
+        }  
+        system.debug('pageName: ' + pageName);
+        
+        if (hasError) return step1();
         
         return Page.LeadStep2;
     }
