@@ -12,6 +12,7 @@ public class LeadProgramController {
     public static final String SELECT_VALUE = 'Please, select a value.';
     public static final String ONLY_LETTERS = 'Please, enter only letters.';
     public static final String ONLY_PHONE = 'Please, enter valid phone number.';
+    public static final String DEFAULT_VAL = '—Please select one—';
     
     
     public Lead lead;
@@ -26,7 +27,7 @@ public class LeadProgramController {
     public SelectOption[] getOptions() {
         SelectOption[] options = new SelectOption[] {};
             
-            options.add(new SelectOption('', '--None--'));
+            options.add(new SelectOption('', DEFAULT_VAL));
         
         for (Product2 obj : [SELECT Id, Name FROM Product2]) {
             options.add(new SelectOption(obj.Id, obj.Name));
@@ -36,7 +37,7 @@ public class LeadProgramController {
     }
     
     public PageReference step1() {
-        
+                
         if(pageName == PAGE_DEFAULT_PROGRAMM){
             return Page.LeadStep1;
         }
@@ -70,13 +71,15 @@ public class LeadProgramController {
             hasError = true;
         }
         
-        if(lead.Nationality__c == null){
+        if(lead.Nationality__c == null || lead.Nationality__c == DEFAULT_VAL){
             lead.Nationality__c.addError(SELECT_VALUE);
             hasError = true;
         }
         
         if(ApexPages.currentPage().getParameters().get('CheckboxInput') == 'on'){
             lead.Offers__c = true;
+        } else {
+            lead.Offers__c = false;
         }
         
         if (String.isBlank(pageName)) {
@@ -92,7 +95,7 @@ public class LeadProgramController {
     public PageReference step3() {
         Boolean hasError = false;
         
-        if(lead.Degree__c == null) {
+        if(lead.Degree__c == null || lead.Degree__c == DEFAULT_VAL) {
             lead.Degree__c.addError(SELECT_VALUE);
             hasError = true;
         }
@@ -102,17 +105,17 @@ public class LeadProgramController {
             hasError = true;
         }
         
-        if(lead.Own_business__c == null) {
+        if(lead.Own_business__c == null || lead.Own_business__c == DEFAULT_VAL) {
             lead.Own_business__c.addError(SELECT_VALUE);
             hasError = true;
         }
         
-        if(lead.Can_invest__c == null) {
+        if(lead.Can_invest__c == null || lead.Can_invest__c == DEFAULT_VAL) {
             lead.Can_invest__c.addError(SELECT_VALUE);
             hasError = true;
         }
         
-        if(lead.Money_available__c == null) {
+        if(lead.Money_available__c == null || lead.Money_available__c == DEFAULT_VAL) {
             lead.Money_available__c.addError(SELECT_VALUE);
             hasError = true;
         }
@@ -124,26 +127,16 @@ public class LeadProgramController {
     public PageReference save() { 
         Boolean hasError = false;
         
-        if(lead.Where_move__c == null) {
-            lead.Where_move__c.addError(SELECT_VALUE);
+        if(lead.When_move__c == null || lead.When_move__c == DEFAULT_VAL) {
+            lead.When_move__c.addError(SELECT_VALUE);
             hasError = true;
         }
         
         if(lead.Why_move__c == null) {
             lead.Why_move__c.addError(SELECT_VALUE);
             hasError = true;
-        } 
-        
-        if(lead.When_move__c == null) {
-            lead.When_move__c.addError(SELECT_VALUE);
-            hasError = true;
         }
-        
-        if(lead.LinkedIn__c == null) {
-            lead.LinkedIn__c.addError(ADD_VALUE);
-            hasError = true;
-        }
-        
+                
         if (hasError) return Page.LeadStep3;
                
         System.debug('browserurl: '+ browserurl);
